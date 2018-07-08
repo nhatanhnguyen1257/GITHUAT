@@ -71,6 +71,7 @@ public class VuTru {
          if (mu == SIZE)
            break;
       }
+      map.put(index, tempNumber);
       return number;    
     }else 
        return number;
@@ -87,7 +88,7 @@ public class VuTru {
   
   public static void main(String []args) {
     VuTru v = new VuTru();
-    v.inSo(v.map, 1, 3);
+    v.inSo(v.map, 1, 512);
     
   }
   
