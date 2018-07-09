@@ -99,7 +99,7 @@ public class Mancala {
         thayDoiGiaTriMang(index, array.length - 1, array, 1);
         
         if (temp % lengthMancale == 0) {
-          thayDoiGiaTriMang(0, array.length - 1, array, 1);
+          thayDoiGiaTriMang(0, array.length - 1, array, temp / lengthMancale);
         }else {
           thayDoiGiaTriMang(0, array.length - 1, array, temp / lengthMancale);
           temp = temp % lengthMancale;
