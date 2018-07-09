@@ -88,7 +88,7 @@ public class VuTru {
   
   public static void main(String []args) {
     VuTru v = new VuTru();
-    v.inSo(v.map, 1, 512);
+    v.inSo(v.map, 1, 3);
     
   }
   
