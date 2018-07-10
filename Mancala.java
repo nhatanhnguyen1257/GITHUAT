@@ -41,14 +41,17 @@ public class Mancala {
     int tong = 0;
     for ( int i = 0 ; i < array.length; i++) {
       
-      aray = saoChepMang(array);
-      dichMang(i, aray, lengthMancale);
-      
-      temp = tongSoChan( aray);
-      inMang(aray);
-      if (temp > 0) {
-        tong = temp;
+      if(array[i] != 0) {
+        aray = saoChepMang(array);
+        dichMang(i, aray, lengthMancale);
+        
+        temp = tongSoChan( aray);
+        inMang(aray);
+        if (temp > tong) {
+          tong = temp;
+        }
       }
+      
     }
     return tong;
   }
@@ -87,25 +90,30 @@ public class Mancala {
    * @param lengthMancale: độ dài mảng.
    */
   private void dichMang(int index, int []array, int  lengthMancale) {
-    if (array[index] != 0) {
-      int temp =  array[index] - (lengthMancale - 1 - index);
-      //TH1:
-      if ( temp <= 0) {
-        array[index] = 0;
-        thayDoiGiaTriMang(index, index + (lengthMancale - 1 - index) - 1, array, 1);
+    int numberIndex = array[index];
+    int temp;
+    array[index] = 0;
+    if (numberIndex % lengthMancale == 0) {
+      thayDoiGiaTriMang(0, lengthMancale - 1, array, numberIndex/lengthMancale);
+    }else {
+      if (numberIndex / lengthMancale > 0) {
+        thayDoiGiaTriMang(0, lengthMancale - 1, array, numberIndex/lengthMancale);
+        temp = numberIndex % lengthMancale; 
+        thayDoiGiaTriMang(index, index +( lengthMancale - 1- index), array, 1);
+        if (temp - (lengthMancale - 1- index) > 0) {
+          thayDoiGiaTriMang(0, temp - (lengthMancale - 1- index), array, 1);
+        }
       }else {
-        //TH2:
-        array[index ] = 0;
-        thayDoiGiaTriMang(index, array.length - 1, array, 1);
-        
-        if (temp % lengthMancale == 0) {
-          thayDoiGiaTriMang(0, array.length - 1, array, temp / lengthMancale);
+        temp =   lengthMancale - 1- index;
+        if (numberIndex -temp <= 0) {
+          thayDoiGiaTriMang(index, index + numberIndex , array, 1);
         }else {
-          thayDoiGiaTriMang(0, array.length - 1, array, temp / lengthMancale);
-          temp = temp % lengthMancale;
-          thayDoiGiaTriMang(0, temp, array, 1);
+          thayDoiGiaTriMang(index, lengthMancale -1 , array, 1);
+          temp = numberIndex - (lengthMancale - 1 - index);
+          thayDoiGiaTriMang(0, temp , array, 1);
         }
       }
+      
     }
   }
   
@@ -117,7 +125,7 @@ public class Mancala {
    * @param: number: số đơn vị tăng.
    * */
   private void thayDoiGiaTriMang(int indexStart,int indexEnd, int []ary, int number) {
-    
+   
     if (indexStart != 0)
         indexStart += 1;
     
